@@ -8,14 +8,23 @@ Creating an animation requires ffmpeg to be installed locally.
 https://ffmpeg.org/download.html
 
 python==3.9.12
+
 package requirements:
 
 datetime
+
 pathlib
+
 os
+
 subprocess
 
+
 numpy
+
 scipy
+
 matplotlib
+
 tqdm
+
