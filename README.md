@@ -1,4 +1,5 @@
 # Cucker-Smale-flocking-movies
+Simulating Cucker-Smale on flat torus with random imput and adjustable number of "neighbours".
 
 Using ffmpeg script main.ipynb creates a video of an 
 evolution of the Cucker-Smale flocking model.
