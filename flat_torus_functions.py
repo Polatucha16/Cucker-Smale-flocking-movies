@@ -64,7 +64,8 @@ def find_neighbours(y, k):
         """
     
     pts = np.divmod(y[:,:2],1)[1] 
-    dists, neigh = KDTree(pts).query(pts, k=k+1, eps=0, p=2, distance_upper_bound = np.inf, workers=4)
+    kd_tree = KDTree(pts)
+    dists, neigh = kd_tree.query(pts, k=k+1, eps=0, p=2, distance_upper_bound = np.inf, workers=4)
     
     for i, dist_vec in enumerate(dists.copy()):
         # In KDTree.query.d (distances) are sorted thus we only check if last distance is bigger that distances to edge
@@ -74,7 +75,7 @@ def find_neighbours(y, k):
             # maybe on the other side there are closer points? Let ask KDTree from copies of the pts[i]
             # dists_TW, ind_TW are distances "Through Walls" and indecies "Through Walls"
             copies_of_i = pt_clones(pts[i])
-            dists_TW, ind_TW = KDTree(pts).query(copies_of_i, k+1, eps=0, p=2, distance_upper_bound = np.inf, workers=1)
+            dists_TW, ind_TW = kd_tree.query(copies_of_i, k+1, eps=0, p=2, distance_upper_bound = np.inf, workers=1)
             dist_join, ind_join = np.concatenate((dist_vec.reshape(1,-1), dists_TW)), np.concatenate((neigh[i].reshape(1,-1), ind_TW))
             # From joined dists that do not cross wall and dists from copies we find k smallest
             places = places_of_k_smallest_values(dist_join, k+1)
